@@ -5,13 +5,11 @@
 #include <iostream>
 
 using namespace std;
-float *zeroSmaller(float fNumb, float sNumb)
+void zeroSmaller(float *fNumb, float *sNumb)
 {
-    (fNumb < sNumb) ? fNumb = 0 : sNumb = 0;
-    static int arr[] = {fNumb,
-                        sNumb};
-    return arr;
+    (*fNumb < *sNumb) ? *fNumb = 0 : *sNumb = 0;
 }
+
 int main()
 {
     float fNumb, sNumb;
@@ -20,7 +18,6 @@ int main()
     cin >> fNumb;
     cout << "Number 2: ";
     cin >> sNumb;
-    float result[] = zeroSmaller(fNumb, sNumb);
-    cout << result[0], result[1] << endl;
+    zeroSmaller(&fNumb, &sNumb);
     return 0;
 }
