@@ -16,6 +16,11 @@ int main()
     // Declaring the variables and arrays int num1 = 17785;
     char pleasantry[] = "Welcome to this class!";
     long num1 = 17785;
+
+    string greetings[1] = {"Guaaao"};
+
+    cout << greetings;
+
     float num2 = -56.1427;
     char var[] = "5262778y";
     int num3 = 5, num4 = 5, num5 = 5;
@@ -30,7 +35,7 @@ int main()
     marks[2] = 75;
 
     // Pass the fifth value to a variable called “AppliedElectricity”
-    int appliedElectricity = marks[5];
+    int appliedElectricity = marks[4];
 
     // Printing out the declared variables
     cout << "Hello Word\n";
