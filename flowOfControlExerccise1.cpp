@@ -7,45 +7,49 @@
 // When it finishes the calculation, the program should ask whether the user wants to do another
 // calculation. The response can be ‘y’ or ‘n’
 #include <iostream>
-#include <iomanip>
-#include <string.h>
-
+// #include <iomanip>
+// #include <string.h>
 using namespace std;
-
 bool isTrue = true;
-
-void addition(int firstVal, int secVal)
+void addition(float firstVal, float secVal)
 {
     cout << firstVal << " + " << secVal << " = " << firstVal + secVal << endl;
 }
-void multiplication(int firstVal, int secVal)
+void multiplication(float firstVal, float secVal)
 {
     cout << firstVal << " * " << secVal << " = " << firstVal * secVal << endl;
 }
-void division(int firstVal, int secVal)
+void division(float firstVal, float secVal)
 {
     cout << firstVal << " / " << secVal << " = " << firstVal / secVal << endl;
 }
-void subraction(int firstVal, int secVal)
+void subraction(float firstVal, float secVal)
 {
     {
         cout << firstVal << " - " << secVal << " = " << firstVal - secVal << endl;
     }
 }
-
 void endCalc()
 {
     char ans;
     cout << "Want to do another calculation ? "
          << " y or n" << endl;
     cin >> ans;
-    (strcmp(ans, "y") == 0) ? isTrue : isTrue = false;
+    switch (ans)
+    {
+    case 'y':
+        isTrue;
+        break;
+    case 'n':
+        isTrue = false;
+        break;
+    default:
+        isTrue = false;
+    }
 }
-
 int main()
 {
-    float firstValue;
-    float secondValue;
+    float firstValue, secondValue;
     int operatorTouse;
     while (isTrue)
     {

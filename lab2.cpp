@@ -11,6 +11,10 @@
 // 7. For a BMI of 40 and above, the program’s response should be “You are morbidly obese.”
 
 #include <iostream>
+#include <iomanip> // included because we want to use the setprecision(n)
+//
+// fixed<<setprecision(n) - used to set the decimal places of a float variable
+#include <cmath> // included because we want to use the pow(value, exponent)
 
 using namespace std;
 
@@ -21,8 +25,8 @@ int main()
     cin >> height;
     cout << "Weight(kg): ";
     cin >> weight;
-    bmi = (((height * (0.01))) * ((height * (0.01))));
-    cout << "BMI(kg/m2) = " << bmi << endl;
+    bmi = weight / pow((height * (0.01)), 2);
+    cout << "BMI(kg/m2) = " << fixed << setprecision(2) << bmi << endl;
 
     if (bmi < 18.5)
         cout << "You're underweight" << endl;

@@ -2,15 +2,11 @@
 // Fahrenheit to Celsius or Celsius to Fahrenheit. Then carry out the conversion.
 #include <iostream>
 using namespace std;
-
 bool isTrue = true;
-
+float celciusValue, fahrenheitValue;
 void celciusToFahrenheit()
 {
-    float celciusValue;
-    float fahrenheitValue;
-    cout << "Degree Celcius: ";
-    cin >> celciusValue;
+    cout << "Degree Celcius: "; cin >> celciusValue;
     fahrenheitValue = (celciusValue * (9 / 5)) + 32;
     cout << celciusValue << " degree celcius = " << fahrenheitValue << " degree fahrenheit" << endl
          << "\n";
@@ -18,28 +14,21 @@ void celciusToFahrenheit()
 
 void fahrenheitToCelcius()
 {
-    float celciusValue;
-    float fahrenheitValue;
-    cout << "Degree Fahrenheit: ";
-    cin >> fahrenheitValue;
+    cout << "Degree Fahrenheit: "; cin >> fahrenheitValue;
     celciusValue = (fahrenheitValue - 32) / (9 / 5);
     cout << fahrenheitValue << " degree fahrenheit = " << celciusValue << " degree celcius" << endl
          << "\n";
 }
-
 void endConversion()
 {
     int ans;
     cout << "Want to do another conversion?" << endl
-         << "1-Yes" << endl
-         << "2-No" << endl;
+         << "1-Yes" << endl << "2-No" << endl;
     cin >> ans;
     (ans == 1) ? isTrue : isTrue = false;
 }
-
 void conversionToUndertake()
 {
-
     while (isTrue)
     {
         int conversionUserWant;
@@ -60,7 +49,6 @@ void conversionToUndertake()
         }
     }
 }
-
 int main()
 {
     conversionToUndertake();
