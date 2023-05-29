@@ -14,20 +14,23 @@ bool isTrue = true;
 void addition(float firstVal, float secVal)
 {
     cout << firstVal << " + " << secVal << " = " << firstVal + secVal << endl;
+    endCalc();
 }
 void multiplication(float firstVal, float secVal)
 {
     cout << firstVal << " * " << secVal << " = " << firstVal * secVal << endl;
+    endCalc();
 }
 void division(float firstVal, float secVal)
 {
     cout << firstVal << " / " << secVal << " = " << firstVal / secVal << endl;
+    endCalc();
 }
 void subraction(float firstVal, float secVal)
 {
-    {
-        cout << firstVal << " - " << secVal << " = " << firstVal - secVal << endl;
-    }
+
+    cout << firstVal << " - " << secVal << " = " << firstVal - secVal << endl;
+    endCalc();
 }
 void endCalc()
 {
