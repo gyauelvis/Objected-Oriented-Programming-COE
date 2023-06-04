@@ -5,6 +5,7 @@
         "functional": "cpp",
         "random": "cpp",
         "iomanip": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "*.tcc": "cpp"
     }
 }
