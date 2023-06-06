@@ -1,10 +1,12 @@
 #include <iostream>
+#include <string>    //So that we can use the string data type;
+#include <windows.h> // We want to change colors the output
 using namespace std;
 
 int main()
 {
+    system("Color 2D"); // After the Color keyword the first value represents the color of the background we want and the second value the color of text. 
     int a, b;
-
     // static_cast<dataType>(expression) is used for explicit conversion of one data type of an expression to another.
     cout << static_cast<int>(2.345) << endl; // Outputs 2
     // Using the cin keyword to take in multiple values
