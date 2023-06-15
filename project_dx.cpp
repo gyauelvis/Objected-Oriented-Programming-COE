@@ -9,6 +9,7 @@ bool isTrue = true;
 // declaring the differiantor fxn
 void differiantor();
 void integrator();
+void numberOfTerms();
 
 // Global functions
 bool verifyingUserInput(int value)
@@ -60,4 +61,18 @@ void differiantor()
 void integrator()
 {
     string ans;
+}
+
+void numberOfTerms()
+{
+    int numTerms = 0;
+    cout << "Number of terms in expression" << endl;
+    cin >> numTerms;
+    string expression[numTerms];
+    for (int i = 0; i < numTerms; i++)
+    {
+        cout << i + 1 << " Term" << endl
+             << "Quoefficient: ";
+        cin >> expression[i];
+    };
 }
