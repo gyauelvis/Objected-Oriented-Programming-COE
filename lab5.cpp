@@ -30,6 +30,7 @@ public:
         {
             cout << videoTitle << endl;
         }
+        // For the for loop above we are saying that for each value of the PublishedVideoTitles we should store that particular value to the videoTitle string and print the videoTitle out;
     }
     void subscribe()
     {
