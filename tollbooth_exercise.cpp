@@ -36,7 +36,8 @@ int main()
         int asciiValue;
         cout << "1. Count Paying Car" << endl
              << "2. Count Non Paying Car" << endl;
-        cin >> userChoice;
+        userChoice = getch();
+        // The conio header file allows us to use this getch() which gets the ascii value of the key being pressed and it passes it to the userChoice var
         asciiValue = userChoice;
         if (userChoice == '1')
             ayeduase.payingCar();
