@@ -10,7 +10,11 @@ private:
     double amoutCollected;
 
 public:
-    tollBooth() : numberOfCars(0), amoutCollected(0){};
+    tollBooth()
+    {
+        numberOfCars = 0;
+        amoutCollected = 0;
+    };
     void payingCar()
     {
         numberOfCars++;
