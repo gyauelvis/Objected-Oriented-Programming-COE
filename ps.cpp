@@ -39,7 +39,7 @@ int main()
     return 0;
 }
 
-int operator ::addValue(int c, int d)
+int operator :: addValue(int c, int d)
 {
 }
 
