@@ -60,9 +60,6 @@ void max_minFinder(int array[], int *length)
     cout << "smallest: " << *smallest << endl;
 }
 
-
-
-
 int main()
 {
 
