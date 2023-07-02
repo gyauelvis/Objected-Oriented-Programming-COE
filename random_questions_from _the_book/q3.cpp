@@ -1,0 +1,2 @@
+// In this example, we design and implement a class to manipulate an integer. Consider the integer 6203851479017652638. Some of the operations that can be performed on this integer are: count the number of even digits, odd digits, and zeros; find the sum  of the digits; reverse the digits; split the number into blocks of three-digit numbers; and  find the sum of these numbers. The following class defines some of these operations
+

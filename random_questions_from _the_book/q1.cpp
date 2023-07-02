@@ -93,6 +93,14 @@ int main()
         cin >> *c;
         line[i]->setCoefficients(*a, *b, *c);
     }
+
+    // Properties of lines
+    for (int i = 0; i < 2; i++)
+    {
+        cout << "Properties of Line " << i + 1 << ": " << endl<<"Vertical line: ";
+        if(line[i]->isVertical()){}
+
+    }
     cout << "line 1 Vertical:" << line[1]->isVertical();
 
     delete a;

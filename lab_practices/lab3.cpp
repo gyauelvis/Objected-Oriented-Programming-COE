@@ -5,6 +5,7 @@
 // 4. Write a function to generate the Fibonacci sequence up to a given number
 
 #include <iostream>
+
 using namespace std;
 
 int sum_of_first_n_numbers(int n);
@@ -15,6 +16,7 @@ int main()
 {
     int number;
     float height;
+
     cout << "Enter any natural number greater than 0" << endl
          << "n: ";
     cin >> number;
@@ -46,21 +48,22 @@ inline float cmTofeet(float height)
 
 void fibonacci_sequence(int n)
 {
-    int f_s[] = {0, 1};
-    if (n == 0)
-        cout << f_s[0] << endl;
-    else if (n == 1)
-        cout << f_s[0] << f_s[1] << endl;
-    else
+    int first_number = 0, second_number = 1, next_number;
+    if (n == 1)
+        cout << "[" << first_number << "]";
+    else if (n == 2)
+        cout << "[" << first_number << ", " << second_number << "]";
+    else if (n > 2)
     {
-        cout << endl
-             << f_s[0] << endl
-             << f_s[1] << endl;
-        for (int i = 2; i < n; i++)
+        cout << "[" << first_number << ", " << second_number << " ,";
+        for (int i = 3; i <= n; i++)
         {
-            f_s[i] = f_s[i - 2] + f_s[i - 1];
-
-            cout << f_s[i] << endl;
+            next_number = second_number + first_number;
+            (i != n) ? cout << next_number << ", " : cout << next_number;
+            // cout << next_number << ", ";
+            first_number = second_number;
+            second_number = next_number;
         }
+        cout << "]" << endl;
     }
 }

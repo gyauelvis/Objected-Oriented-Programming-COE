@@ -1,21 +1,30 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-int sub(int a, int b)
-{
-    return a - b;
-};
-int add(int a, int b)
-{
-    return a + b;
-};
+// int sub(int a, int b)
+// {
+//     return a - b;
+// };
+// int add(int a, int b)
+// {
+//     return a + b;
+// };
 
-int operation(int a, int b, int (*funtCall)(int, int))
+// int operation(int a, int b, int (*funtCall)(int, int))
+// {
+//     return funtCall(a, b);
+// }
+
+string revNum(long long n)
 {
-    return funtCall(a, b);
+    string str = to_string(n);
+    return str;
 }
 
 int main()
 {
-    cout << operation(2, 3, sub);
+    cout << revNum(2);
+
+    return 0;
 }
