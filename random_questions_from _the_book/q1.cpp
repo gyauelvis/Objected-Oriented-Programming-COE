@@ -81,9 +81,10 @@ int main()
     float *a = new float;
     float *b = new float;
     float *c = new float;
-    *line = new lineType[2];
+    // *line = new lineType[2];
     for (int i = 0; i < 2; i++)
     {
+        line[i] = new lineType;
         cout << "Line " << i + 1 << ": " << endl;
         cout << "a = ";
         cin >> *a;
@@ -97,9 +98,11 @@ int main()
     // Properties of lines
     for (int i = 0; i < 2; i++)
     {
-        cout << "Properties of Line " << i + 1 << ": " << endl<<"Vertical line: ";
-        if(line[i]->isVertical()){}
-
+        cout << "Properties of Line " << i + 1 << ": " << endl
+             << "Vertical line: ";
+        if (line[i]->isVertical())
+        {
+        }
     }
     cout << "line 1 Vertical:" << line[1]->isVertical();
 

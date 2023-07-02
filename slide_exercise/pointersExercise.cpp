@@ -1,8 +1,4 @@
-// Write a program that reads a group of numbers from
-// the user and places them in an array of type float.
-// Once the numbers are stored in the array, the
-// program should average them and print the result.
-// Use pointer notation wherever possible
+// Write a program that reads a group of numbers from the user and places them in an array of type float. Once the numbers are stored in the array, the program should average them and print the result. Use pointer notation wherever possible
 
 #include <iostream>
 

@@ -29,6 +29,6 @@ int integerManipulation::coutEvenNumbers()
 {
 }
 
-int interManipulation::reverseDigits(){
+// int interManipulation::reverseDigits(){
     
-};
+// };

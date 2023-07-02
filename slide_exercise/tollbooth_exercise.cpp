@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <conio.h> //So as to determine the ESC key pressed
+#include <conio.h> //So as to determine th0e ESC key pressed
 using namespace std;
 
 class tollBooth
