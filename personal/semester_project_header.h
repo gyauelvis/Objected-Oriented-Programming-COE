@@ -21,7 +21,7 @@ public:
     Inventory();
     bool assignRefNumber();
     void addProduct();
-    void displayProduct();
+    bool displayProduct();
     bool modifyProducts();
     bool deleteProduct();
     void display_format_header();
@@ -33,7 +33,6 @@ bool Inventory::assignRefNumber()
 {
     vector<string> refNumber_vector;
     string line;
-
 
     productFile.open("inventory_file.txt", ios::in);
 
@@ -65,7 +64,7 @@ void Inventory::addProduct()
 {
     string productName;
     int prodPrice, quantity;
-
+    assignRefNumber();
     cout << "[ Press Enter Key after entering each detail ]" << endl;
 
     cout << "Product ID: " << productRefNumber << endl
@@ -96,14 +95,11 @@ void Inventory::addProduct()
         system("cls");
 
         // Changing color of text to green
-        //system("Color 0A");
+        // system("Color 0A");
 
-        cout<<"Product Added Sucessfully"<<endl;
+        cout << "Product Added Sucessfully" << endl;
 
-        //system("Color 07");
-
-
-
+        // system("Color 07");
     }
     else
     {
@@ -114,20 +110,22 @@ void Inventory::addProduct()
 void Inventory::display_format_header()
 {
     cout << left << setw(10) << "ID"
-              << setw(20) << "Product Name"
-              << setw(10) << "Price"
-              << setw(10) << "Quantity" << "\n";
-    cout << setfill('-') << setw(50) << "" << "\n";
+         << setw(20) << "Product Name"
+         << setw(10) << "Price"
+         << setw(10) << "Quantity"
+         << "\n";
+    cout << setfill('-') << setw(50) << ""
+         << "\n";
     cout << setfill(' ');
 }
 
-void Inventory::displayProduct()
+bool Inventory::displayProduct()
 {
 
     vector<string> fileLines;
     int userChoice;
     bool refExist = false;
-    string line, refCode;
+    string line;
 
     productFile.open("inventory_file.txt", ios::in);
     if (productFile.is_open())
@@ -144,18 +142,16 @@ void Inventory::displayProduct()
         cout << "Error opening file";
         return false;
     }
-    
+
     display_format_header();
     for (int i = 0; i < fileLines.size(); i += 4)
     {
-        
-        cout << left << setw(10) << fileLines[i];
-              << setw(20) << fileLines[i + 1]
-              << setw(10) << fileLines[i + 2]
-              << setw(10) << fileLines[i + 3] << "\n";
+
+        cout << left << setw(10) << fileLines[i]
+             << setw(20) << fileLines[i + 1]
+             << setw(10) << fileLines[i + 2]
+             << setw(10) << fileLines[i + 3] << "\n";
     }
-    
-    
 }
 
 bool Inventory::modifyProducts()
@@ -181,15 +177,7 @@ bool Inventory::modifyProducts()
         return false;
     }
 
-    cout << "List of Available Products" << endl;
-    for (int i = 0; i < fileLines.size(); i += 4)
-    {
-        cout << "Product ID: " << fileLines[i] << endl;
-        cout << "Product Name: " << fileLines[i + 1] << endl;
-        cout << "Price: " << fileLines[i + 2] << endl;
-        cout << "Quantity: " << fileLines[i + 3] << endl;
-        cout << "---------------------------" << endl;
-    }
+    displayProduct();
 
     cout << "Enter the product ID or reference code of the product you want to modify: ";
     cin >> refCode;
@@ -269,7 +257,8 @@ bool Inventory::modifyProducts()
 
 // Function definition for deleteProduct
 
-bool Inventory::deleteProduct(){
+bool Inventory::deleteProduct()
+{
 
     vector<string> fileLines;
     bool refExist = false;
@@ -278,8 +267,8 @@ bool Inventory::deleteProduct(){
     // will help us delete the product
     int product;
 
-    cout<<"Product ID: ";
-    cin>>refCode;
+    cout << "Product ID: ";
+    cin >> refCode;
 
     productFile.open("inventory_file.txt", ios::in);
     if (productFile.is_open())
@@ -290,7 +279,8 @@ bool Inventory::deleteProduct(){
         }
 
         productFile.close();
-    } else
+    }
+    else
     {
         cout << "Error opening file";
         return false;
@@ -306,36 +296,36 @@ bool Inventory::deleteProduct(){
             break;
         }
     }
-    if(refExist == true){
+    if (refExist == true)
+    {
 
-        fileLines.erase(fileLines.begin()+product, fileLines.begin()+(product+4));
+        fileLines.erase(fileLines.begin() + product, fileLines.begin() + (product + 4));
 
         productFile.open("inventory_file.txt", ios::out); // overwriting the whole file
 
         if (productFile.is_open())
         {
 
-        for (const string &modifiedLine : fileLines)
-        {
-            productFile << modifiedLine << "\n";
-        }
+            for (const string &modifiedLine : fileLines)
+            {
+                productFile << modifiedLine << "\n";
+            }
 
-        productFile.close();
+            productFile.close();
 
-        cout << "Deleted Successfully" << endl;
+            cout << "Deleted Successfully" << endl;
         }
 
         else
         {
-        cout << "Error deleting file." << endl;
-        return false;
+            cout << "Error deleting file." << endl;
+            return false;
         }
         return true;
-    }else{
-        cout<<"Reference ID not found"<<endl;
+    }
+    else
+    {
+        cout << "Reference ID not found" << endl;
         return false;
     }
-
-
-
 }
