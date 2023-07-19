@@ -8,7 +8,7 @@
 #include <fstream>
 #include <string> // For using the getline()
 #include <iomanip>
-#include <windows.h>
+// #include <windows.h>
 using namespace std;
 
 class Inventory
@@ -113,7 +113,7 @@ void Inventory::addProduct()
 
 void Inventory::display_format_header()
 {
-    cout << left << std::setw(10) << "ID"
+    cout << left << setw(10) << "ID"
               << setw(20) << "Product Name"
               << setw(10) << "Price"
               << setw(10) << "Quantity" << "\n";
@@ -124,23 +124,38 @@ void Inventory::display_format_header()
 void Inventory::displayProduct()
 {
 
+    vector<string> fileLines;
+    int userChoice;
+    bool refExist = false;
+    string line, refCode;
+
     productFile.open("inventory_file.txt", ios::in);
     if (productFile.is_open())
     {
-        productFile.seekg(0, ios::beg); // Reset the file cursor to the beginning
-        string line;
-        //cout << "List of Available Products\n";
-        display_format_header();
         while (getline(productFile, line))
         {
-            cout << line << endl;
+            fileLines.push_back(line);
         }
+
         productFile.close();
     }
     else
     {
         cout << "Error opening file";
+        return false;
     }
+    
+    display_format_header();
+    for (int i = 0; i < fileLines.size(); i += 4)
+    {
+        
+        cout << left << setw(10) << fileLines[i];
+              << setw(20) << fileLines[i + 1]
+              << setw(10) << fileLines[i + 2]
+              << setw(10) << fileLines[i + 3] << "\n";
+    }
+    
+    
 }
 
 bool Inventory::modifyProducts()
@@ -324,5 +339,3 @@ bool Inventory::deleteProduct(){
 
 
 }
-
-
