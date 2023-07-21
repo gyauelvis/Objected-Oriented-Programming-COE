@@ -1,4 +1,5 @@
 // Todos
+// input error handling
 // Gettingccreative if time is permitted we could convert all the info in text file so that if somebody manually opens up the text file they wouldn't have access to our info
 // Formatting the output
 // Outputting a sorry message when the user wants to modify the file but enters a wrong id
@@ -8,6 +9,7 @@
 #include <fstream>
 #include <string> // For using the getline()
 #include <iomanip>
+#include <cstdlib> //header for a system function
 // #include <windows.h>
 using namespace std;
 
@@ -19,6 +21,8 @@ private:
 
 public:
     Inventory();
+    void menu();
+    void admin();
     bool assignRefNumber();
     void addProduct();
     bool displayProduct();
@@ -62,28 +66,45 @@ bool Inventory::assignRefNumber()
 }
 void Inventory::addProduct()
 {
-    string productName;
-    int prodPrice, quantity;
-    assignRefNumber();
-    cout << "[ Press Enter Key after entering each detail ]" << endl;
-
-    cout << "Product ID: " << productRefNumber << endl
-         << "Enter Product Name: ";
-    cin >> productName;
-
-    cout << "Price in GHS: ";
-    cin >> prodPrice;
-
-    cout << "Quantity: ";
-    cin >> quantity;
-    cin.ignore();
-
+    // checking if the inventory file is open then it closes it
     if (productFile.is_open())
     {
         productFile.close();
     }
 
-    productFile.open("inventory_file.txt", ios::app); // Writing to a text file
+    displayProduct();
+
+    string productName;
+    int prodPrice, quantity,numberOfItems;
+
+
+    cout << "\t\t\t\t[ Press Enter Key after entering each detail ]\n\n";
+
+    cout<<"How many product do you want to add?: ";
+    cin>>numberOfItems;
+    //validate inputs
+    for(int i = 0;i<numberOfItems;i++){
+
+    assignRefNumber();
+
+    cout << "\t\t\t\tProduct ID: " << productRefNumber << endl
+         << "\t\t\t\tEnter Product Name: ";
+    cin >> productName;
+
+    cout << "\t\t\t\tPrice in GHS: ";
+    cin >> prodPrice;
+
+    cout << "\t\t\t\tQuantity: ";
+    cin >> quantity;
+    cin.ignore();// Clears input buffer
+
+    }
+
+
+
+
+
+
     if (productFile.is_open())
     {
         productFile << productRefNumber << "\n";
@@ -97,7 +118,7 @@ void Inventory::addProduct()
         // Changing color of text to green
         // system("Color 0A");
 
-        cout << "Product Added Sucessfully" << endl;
+        cout << "\t\t\t\tProduct Added Sucessfully\n\n";
 
         // system("Color 07");
     }
@@ -109,12 +130,12 @@ void Inventory::addProduct()
 
 void Inventory::display_format_header()
 {
-    cout << left << setw(10) << "ID"
+    cout <<"\t\t\t\t"<< left << setw(10) << "ID"
          << setw(20) << "Product Name"
          << setw(10) << "Price"
          << setw(10) << "Quantity"
          << "\n";
-    cout << setfill('-') << setw(50) << ""
+    cout <<"\t\t\t\t"<< setfill('-') << setw(50) << ""
          << "\n";
     cout << setfill(' ');
 }
@@ -147,7 +168,7 @@ bool Inventory::displayProduct()
     for (int i = 0; i < fileLines.size(); i += 4)
     {
 
-        cout << left << setw(10) << fileLines[i]
+        cout <<"\t\t\t\t"<< left << setw(10) << fileLines[i]
              << setw(20) << fileLines[i + 1]
              << setw(10) << fileLines[i + 2]
              << setw(10) << fileLines[i + 3] << "\n";
@@ -179,7 +200,7 @@ bool Inventory::modifyProducts()
 
     displayProduct();
 
-    cout << "Enter the product ID or reference code of the product you want to modify: ";
+    cout << "\t\tEnter ID of the product you want to modify: ";
     cin >> refCode;
     cin.ignore();
 
@@ -260,6 +281,7 @@ bool Inventory::modifyProducts()
 bool Inventory::deleteProduct()
 {
 
+    displayProduct();
     vector<string> fileLines;
     bool refExist = false;
     string line, refCode;
@@ -328,4 +350,108 @@ bool Inventory::deleteProduct()
         cout << "Reference ID not found" << endl;
         return false;
     }
+}
+
+//main menu function
+void Inventory::menu()
+{
+    main_menu:  // label
+    int choice;
+    string username;
+    string password;
+
+    //Styling the main menu page
+    cout<<"\t\t\t\t\t____________________________________\n";
+    cout<<"\t\t\t\t\t                                     \n";
+    cout<<"\t\t\t\t\t                                  \n";
+    cout<<"\t\t\t\t\t    SUPERMARKET MAIN MENU         \n";
+    cout<<"\t\t\t\t\t                                   \n";
+    cout<<"\t\t\t\t\t____________________________________\n";
+    cout<<"\t\t\t\t\t                                     \n";
+    cout<<"\t\t\t\t\t      |    [1] ADMIN    |\n";
+    cout<<"\t\t\t\t\t      |                 |\n";
+    cout<<"\t\t\t\t\t      |    [2] BUYER    |\n";
+    cout<<"\t\t\t\t\t      |                 |\n";
+    cout<<"\t\t\t\t\t      |    [3] EXIT     |\n";
+    cout<<"\t\t\t\t\t                                      \n";
+    cout<<"\n\t\t\t\tPlease select: ";
+    cin >>choice;
+    cout<<"\n";
+    switch(choice)
+    {
+    case 1:
+        cout<<"\t\t\t\t\t---------Login Page--------------\n";
+        cout<<"\n\t\t\tusername: ";
+        cin>>username;
+        cout<<"\n\n\t\t\tPassword: ";
+        cin>>password;
+
+        if (username=="admin" && password=="password"){
+           admin();
+        }
+        else
+        {
+            cerr<<"Invalid email/password";
+        }
+        break;
+    case 2:
+            //buyer();
+            break;
+    case 3:
+            exit(0);
+            break;
+    default:
+            cout<<"Please select from the given options";
+            goto main_menu;
+    }
+}
+
+
+
+// adminstration function
+void  Inventory::admin()
+{
+    int choice;
+    admin: //label
+    system("cls"); // clears the screen
+
+    cout<<"\n"<<"\t\t\t\t_________WELCOME TO THE ADMIN PAGE_________\n";
+    cout<<endl;
+    displayProduct();
+
+    cout<<"\n\t\t\t\t\t|______[1] ADD PRODUCT________|\n";
+    cout<<"\t\t\t\t\t|                             |\n";
+    cout<<"\t\t\t\t\t|______[2] MODIFY PRODUCT_____|\n";
+    cout<<"\t\t\t\t\t|                             |\n";
+    cout<<"\t\t\t\t\t|______[3] DELETE PRODUCT_____|\n";
+    cout<<"\t\t\t\t\t|                             |\n";
+    cout<<"\t\t\t\t\t|______[4] BACK TO MAIN MENU__|\n";
+
+    cout<<endl;
+    cout<<"\n\tPlease enter your choice: ";
+    cin>>choice;
+
+    switch(choice)
+    {
+        case 1:
+            addProduct();
+            break;
+
+        case 2:
+            modifyProducts();
+            break;
+
+        case 3:
+            deleteProduct();
+            break;
+
+        case 4:
+            menu();
+            break;
+
+        default:
+            cout<<"Invalid choice!!";
+            goto admin;
+    }
+
 }
