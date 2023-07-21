@@ -1,0 +1,154 @@
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
+class shopping
+{
+private:
+    // p stands for product
+    int pcode;
+    float price;
+    float dis; // discount
+    string pname;
+
+public:
+    void menu();
+    void admin();
+    void buyer();
+    void add();
+    void modify();
+    void rem(); // remove
+    void lis(); // list
+    void receipt();
+};
+
+//main menu function
+void shopping::menu()
+{
+    main_menu:  // label
+    int choice;
+    string email;
+    string password;
+
+    //Styling the main menu page
+    cout<<"\t\t\t\t\t________________________________ \n";
+    cout<<"\t\t\t\t\t                                  \n";
+    cout<<"\t\t\t\t\t    SUPERMARKET MAIN MENU         \n";
+    cout<<"\t\t\t\t\t                                   \n";
+    cout<<"\t\t\t\t\t____________________________________\n";
+    cout<<"\t\t\t\t\t                                     \n";
+    cout<<"\t\t\t\t\t      |    [1] ADMIN    |\n";
+    cout<<"\t\t\t\t\t      |                 |n";
+    cout<<"\t\t\t\t\t      |    [2] BUYER    |\n";
+    cout<<"\t\t\t\t\t      |                 |\n";
+    cout<<"\t\t\t\t\t      |    [3] EXIT     |\n";
+    cout<<"\t\t\t\t\t                                      \n";
+    cout<<"\n\t\t\t\tPlease select: ";
+    cin >>choice;
+
+    switch(choice)
+    {
+    case 1:
+        cout<<"\t\t\t\t\t---------Login Page--------------\n";
+        cout<<"\t\t\tEmail: ";
+        cin>>email;
+        cout<<"\n\n\t\t\tPassword: ";
+        cin>>password;
+
+        if (email=="group@gmail.com" && password=="password"){
+           admin();
+        }
+        else
+        {
+            cerr<<"Invalid email/password";
+        }
+        break;
+    case 2:
+            buyer();
+            break;
+    case 3:
+            exit(0);
+            break;
+    default:
+            cout<<"Please select from the given options";
+            goto main_menu;
+    }
+}
+
+
+
+// adminstration function
+void  shopping::admin()
+{
+    int choice;
+    admin: //label
+
+    cout<<"\t\t\t_________WELCOME TO THE ADMIN PAGE_______\n";
+    cout<<endl;
+    cout<<"\t\t\t\t|______[1] ADD PRODUCT________|\n";
+    cout<<"\t\t\t\t|                             |\n";
+    cout<<"\t\t\t\t|______[2] MODIFY PRODUCT_____|\n";
+    cout<<"\t\t\t\t|                             |\n";
+    cout<<"\t\t\t\t|______[3] DELETE PRODUCT_____|\n";
+    cout<<"\t\t\t\t|                             |\n";
+    cout<<"\t\t\t\t|______[4] BACK TO MAIN MENU__|\n";
+
+    cout<<endl;
+    cout<<"\n\tPlease enter your choice: ";
+    cin>>choice;
+
+    switch(choice)
+    {
+        case 1:
+            add();
+            break;
+
+        case 2:
+            modify();
+            break;
+
+        case 3:
+            rem();
+            break;
+
+        case 4:
+            menu();
+            break;
+
+        default:
+            cout<<"Invalid choice!!";
+    }
+    goto admin;
+}
+
+// Buyer function
+void shopping::buyer()
+{
+    buyer: // label
+    int choice;
+    cout<<"t\t\t\t[BUYER]__________\n";
+    cout<<"                         \n";
+    cout<<"\t\t\t [1]BUY PRODUCTION  \n";
+    cout<<"                          \n";
+    cout<<"\t\t\t [2] GO BACK         \n";
+
+    cout<<"\t\t\tPlease choice an option: ";
+    cin>>choice;
+
+    switch(choice)
+    {
+        case 1:
+            receipt();
+            break;
+
+        case 2:
+            menu();
+
+        default:
+            cout<<"Invalid choice";
+
+    }
+    goto buyer;
+}
+
