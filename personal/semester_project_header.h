@@ -19,19 +19,23 @@ private:
     int productRefNumber;
     fstream productFile;
 
+
 public:
     Inventory();
     void menu();
     void admin();
     bool assignRefNumber();
-    void addProduct();
+    bool addProduct();
     bool displayProduct();
     bool modifyProducts();
     bool deleteProduct();
     void display_format_header();
 };
 
-Inventory::Inventory() : productRefNumber(1){};
+Inventory::Inventory() {
+     productRefNumber=1;
+    productFile.open("inventory_file.txt", ios::in);
+};
 
 bool Inventory::assignRefNumber()
 {
@@ -39,6 +43,8 @@ bool Inventory::assignRefNumber()
     string line;
 
     productFile.open("inventory_file.txt", ios::in);
+
+
 
     if (productFile.is_open())
     {
@@ -64,68 +70,69 @@ bool Inventory::assignRefNumber()
     };
     return true;
 }
-void Inventory::addProduct()
-{
-    // checking if the inventory file is open then it closes it
-    if (productFile.is_open())
-    {
-        productFile.close();
-    }
 
-    displayProduct();
+bool Inventory::addProduct()
+{
+
+    productFile.open("inventory_file.txt",ios::app);
+
+    if (!productFile.is_open())
+    {
+        cout << "Error opening file." << endl;
+        return false;
+    }
 
     string productName;
     int prodPrice, quantity,numberOfItems;
 
 
-    cout << "\t\t\t\t[ Press Enter Key after entering each detail ]\n\n";
-
-    cout<<"How many product do you want to add?: ";
+    cout<<"\n";
+    cout<<"\tHow many product do you want to add?: ";
     cin>>numberOfItems;
-    //validate inputs
+
+
+    //validate input
+
+
     for(int i = 0;i<numberOfItems;i++){
 
     assignRefNumber();
 
-    cout << "\t\t\t\tProduct ID: " << productRefNumber << endl
+    cout<<"\n";
+    cout << "\t\t\t\tProduct ID: " << productRefNumber <<"\n"<< endl
          << "\t\t\t\tEnter Product Name: ";
     cin >> productName;
 
+    cout<<"\n";
+
     cout << "\t\t\t\tPrice in GHS: ";
     cin >> prodPrice;
+
+
+    cout<<"\n";
 
     cout << "\t\t\t\tQuantity: ";
     cin >> quantity;
     cin.ignore();// Clears input buffer
 
+
+    cout<<"\n";
+
+    //system("cls");
+
+    productFile << productRefNumber << "\n";
+    productFile << productName << "\n";
+    productFile << prodPrice << "\n";
+    productFile << quantity << "\n";
+
     }
+    productFile.close();
 
 
 
-
-
-
-    if (productFile.is_open())
-    {
-        productFile << productRefNumber << "\n";
-        productFile << productName << "\n";
-        productFile << prodPrice << "\n";
-        productFile << quantity << "\n";
-        productFile.close();
-
-        system("cls");
-
-        // Changing color of text to green
-        // system("Color 0A");
-
-        cout << "\t\t\t\tProduct Added Sucessfully\n\n";
-
-        // system("Color 07");
-    }
-    else
-    {
-        cout << "Error opening file";
-    }
+    cout<<"\n\n";
+    displayProduct();
+    return true;
 }
 
 void Inventory::display_format_header()
@@ -166,7 +173,7 @@ bool Inventory::displayProduct()
 
     display_format_header();
     for (int i = 0; i < fileLines.size(); i += 4)
-    {
+    { if(fileLines.size()==0 )
 
         cout <<"\t\t\t\t"<< left << setw(10) << fileLines[i]
              << setw(20) << fileLines[i + 1]
@@ -391,7 +398,7 @@ void Inventory::menu()
         }
         else
         {
-            cerr<<"Invalid email/password";
+            cerr<<"\t\t\tInvalid email/password";
         }
         break;
     case 2:
@@ -415,9 +422,9 @@ void  Inventory::admin()
     admin: //label
     system("cls"); // clears the screen
 
-    cout<<"\n"<<"\t\t\t\t_________WELCOME TO THE ADMIN PAGE_________\n";
-    cout<<endl;
-    displayProduct();
+    cout<<"\n"<<"\t\t\t\t_________WELCOME TO THE ADMIN PAGE_________\n\n";
+
+    bool display = displayProduct();
 
     cout<<"\n\t\t\t\t\t|______[1] ADD PRODUCT________|\n";
     cout<<"\t\t\t\t\t|                             |\n";
