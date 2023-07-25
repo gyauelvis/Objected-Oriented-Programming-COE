@@ -27,53 +27,48 @@ public:
 };
 
 
-void Shop::display_format_header()
-{
-    cout <<"\t\t\t\t"<< left << setw(10) << "ID"
-         << setw(20) << "Product Name"
-         << setw(10) << "Price"
-         << setw(10) << "Quantity"
-         << "\n";
-    cout <<"\t\t\t\t"<< setfill('-') << setw(50) << ""
-         << "\n";
+void Shop::display_format_header() {
+    cout << "\t\t\t\t" << setfill('-') << setw(65) << "" << "\n";
+    cout << "\t\t\t\t" << left << setw(11) << "| ID"
+         << setw(31) << "| Product Name"
+         << setw(11) << "| Price"
+         << setw(11) << "| Quantity"
+         << "|\n";
+    cout << "\t\t\t\t" << setfill('-') << setw(65) << "" << "\n"; // Add row separator
     cout << setfill(' ');
 }
 
-bool Shop::displayProduct()
-{
-
+bool Shop::displayProduct() {
     vector<string> fileLines;
     int userChoice;
     bool refExist = false;
     string line;
 
     productFile.open("inventory_file.txt", ios::in);
-    if (productFile.is_open())
-    {
-        while (getline(productFile, line))
-        {
+    if (productFile.is_open()) {
+        while (getline(productFile, line)) {
             fileLines.push_back(line);
         }
 
         productFile.close();
     }
-    else
-    {
+    else {
         cout << "Error opening file";
         return false;
     }
 
     display_format_header();
-    for (int i = 0; i < fileLines.size(); i += 4)
-    {
-
-        cout <<"\t\t\t\t"<< left << setw(10) << fileLines[i]
-             << setw(20) << fileLines[i + 1]
-             << setw(10) << fileLines[i + 2]
-             << setw(10) << fileLines[i + 3] << "\n";
+    for (int i = 0; i < fileLines.size(); i += 4) {
+        cout << "\t\t\t\t" << left << setw(11) << "| " + fileLines[i]
+             << setw(31) << "| " + fileLines[i + 1]
+             << setw(11) << "| " + fileLines[i + 2]
+             << setw(11) << "| " + fileLines[i + 3]
+             << "|\n";
+        cout << "\t\t\t\t" << setfill('-') << setw(65) << "" << "\n"; // Add row separator
+        cout << setfill(' ');
     }
+    return true;
 }
-
 
 class Inventory:public Shop
 {
@@ -83,10 +78,9 @@ private:
 
 public:
     Inventory();
-    void admin();
+    bool admin();
     bool assignRefNumber();
     void addProduct();
-    //bool displayProduct();
     bool modifyProducts();
     bool deleteProduct();
 
@@ -181,8 +175,9 @@ void Inventory::addProduct() {
 
 
     }
-
+    admin();
     displayProduct();
+
 }
 
 
@@ -282,10 +277,10 @@ bool Inventory::modifyProducts()
     }
     else
     {
-        cout << "Error opening file." << endl;
+        cout << "\t\t\tError opening file." << endl;
         return false;
     }
-
+    admin();
     return true;
 }
 
@@ -302,7 +297,7 @@ bool Inventory::deleteProduct()
     // will help us delete the product
     int product;
 
-    cout << "Product ID: ";
+    cout << "\t\t\tProduct ID: ";
     cin >> refCode;
 
     productFile.open("inventory_file.txt", ios::in);
@@ -317,7 +312,7 @@ bool Inventory::deleteProduct()
     }
     else
     {
-        cout << "Error opening file";
+        cout << "\t\t\tError opening file";
         return false;
     }
 
@@ -348,32 +343,35 @@ bool Inventory::deleteProduct()
 
             productFile.close();
 
-            cout << "Deleted Successfully" << endl;
+            cout << "\t\t\tDeleted Successfully" << endl;
         }
 
         else
         {
-            cout << "Error deleting file." << endl;
+            cout << "\t\t\tError deleting file." << endl;
             return false;
         }
+        admin();
         return true;
     }
     else
     {
-        cout << "Reference ID not found" << endl;
+        cout << "\t\t\tReference ID not found" << endl;
         return false;
     }
 }
 
 // adminstration function
-void  Inventory::admin()
+bool  Inventory::admin()
 {
     int choice;
     admin: //label
     system("cls"); // clears the screen
 
-    cout<<"\n"<<"\t\t\t\t_________WELCOME TO THE ADMIN PAGE_________\n";
+    cout<<"\n"<<"\t\t\t\t_______________WELCOME TO THE ADMIN PAGE_______________\n";
+
     cout<<endl;
+
     displayProduct();
 
     cout<<"\n\t\t\t\t\t|______[1] ADD PRODUCT________|\n";
@@ -401,6 +399,9 @@ void  Inventory::admin()
         case 3:
             deleteProduct();
             break;
+        case 4:
+            return true;
+            break;
 
         default:
             cout<<"Invalid choice!!";
@@ -427,7 +428,6 @@ public:
     void deposit();
     bool bmenu();
     void signUp();
-    void addCart();
     void buy();
     void receipt();
     double getCustomerBalance();
@@ -447,7 +447,7 @@ double Cashier::getCustomerBalance(){
     }
     else
     {
-        cout << "Error opening file.\n";
+        cout << "\t\t\tError opening file.\n";
         return 0 ;
     }
 
@@ -469,11 +469,13 @@ bool Cashier::login()
     vector<string>loginCredentials;
     bool userNameExist= false,passwordExist =false;
     string line;
-    cout << "\t\t\t\t________________________LOGIN PAGE______________________\n";
-    cout << endl;
+      cout<<"\t\t\t\t" << "___________________________________________________\n";
+    cout<<"\n";
+    cout <<"\t\t\t\t"<< "\t\t\t  Login Page\n";
+    cout<<"\t\t\t\t" << "___________________________________________________\n";
 
 menu:
-    cout << "\t\t\tEnter your username: ";
+    cout << "\n\t\t\tEnter your username: ";
     cin >> userName;
     cout <<"\n\t\t\tEnter your password: ";
     cin >> password;
@@ -507,7 +509,7 @@ menu:
 
     }else{
 
-        cout<<"\033[1;31m"<<"\t\t\tWrong Credenetials"<<"\033[0m"<<endl;
+        cout<<"\033[1;31m"<<"\t\t\tWrong Credentials"<<"\033[0m"<<endl;
         goto menu;
 
     }
@@ -522,8 +524,11 @@ void Cashier::signUp(){
  vector<string>loginCredentials;
  string line;
  string cpassword;
- cout << "\t\t\t\t________________________SIGN UP______________________\n";
- cout << endl;
+   cout<<"\t\t\t\t" << "___________________________________________________\n";
+    cout<<"\n";
+    cout <<"\t\t\t\t"<< "\t\t\t  SIGN UP\n";
+    cout<<"\t\t\t\t" << "___________________________________________________\n";
+ cout << "\n";
 username_label:
  cout << "\n\t\t\tCreate Username: ";
  cin >> userName;
@@ -562,7 +567,7 @@ password_label:
 
 
 
-    cout<<"\n\t\tInitial Deposit: ";
+    cout<<"\n\t\t\tInitial Deposit: ";
     cin>>amountInAccount;
 
     loginFile.open("login_file.txt",ios::app);
@@ -636,6 +641,7 @@ void Cashier::deposit()
     {
         cout << "\n\t\tError writing to file.\n";
     }
+    system("cls");
 }
 
 
@@ -680,19 +686,17 @@ buyerMenu:
     }
 }
 
-
 void Cashier::customer_page()
 {
     bmenu:
-    displayProduct();
     int choice;
 
-    cout << "\n\t\tHi, " << userName << "\t\t\t\t\t\t\t\t|GHS " << getCustomerBalance() << "|" << endl;
+    cout << "\t\t\t\t  Hey, " << userName << "\t\t\t\t\t\t|GHS " << fixed << setprecision(2) << getCustomerBalance() << "|" << endl;
     cout << "\t\t\t\t\t                             \n";
     cout << "\t\t\t\t\t      |    [1] DEPOSIT       |\n";
     cout << "\t\t\t\t\t      |    [2] BUY           |\n";
     cout << "\t\t\t\t\t      |    [3] MAIN MENU     |\n";
-    cout << "\t\t\t\t\t                                      \n";
+    cout << "\t\t\t\t\t                             \n";
     cout << "\t\t\t Option: ";
     cin >> choice;
 
@@ -712,7 +716,7 @@ void Cashier::customer_page()
             break;
         default:
             system("cls");
-            cout << "\n\t\t\tInvalid Option" << endl;
+            std::cout << "\n\t\t\tInvalid Option" << std::endl;
             goto bmenu;
     }
 }
@@ -720,7 +724,6 @@ void Cashier::customer_page()
 
 void Cashier::buy() {
     displayProduct();
-
     string productId;
     cout << "\n\t\t\tEnter the ID of the product you want to buy: ";
     cin >> productId;
@@ -815,14 +818,19 @@ void Cashier::buy() {
                             cout << "\n\t\t\tError writing to the file." << endl;
                             return;
                         }
+                        system("cls");
 
-                        // Print the receipt
-                        cout << "\n\t\t\tPurchase successful." << endl;
-                        cout << "\n\t\t\tReceipt:" << endl;
-                        cout << "\t\t\tProduct: " << fileLines[i + 1] << endl;
-                        cout << "\t\t\tQuantity: " << quantityToBuy << endl;
-                        cout << "\t\t\tTotal Cost: GHS " << totalCost << endl;
-                        cout << "\t\t\tRemaining Balance: GHS " << getCustomerBalance() << endl;
+                        cout << "\n\t\t\tPurchase successful." << endl << "\n";
+                        cout << "\n\t\t\tReceipt:" << endl << "\n";
+                        cout << "\t\t\t+-----------------------+-----------+-------+---------------+---------------+" << endl;
+                        cout << "\t\t\t|       Product         | Quantity  | Price | Total Cost    | Remaining Bal |" << endl;
+                        cout << "\t\t\t+-----------------------+-----------+-------+---------------+---------------+" << endl;
+                        cout << left << fixed << setprecision(2);
+                        cout << "\t\t\t| " << setw(22) << fileLines[i + 1] << " | " << setw(9) << quantityToBuy << "| " << setw(5) << price
+                        << " | " << setw(13) << totalCost << " | " << setw(13) << getCustomerBalance() << " |" << endl;
+                        cout << "\t\t\t+-----------------------+-----------+-------+---------------+---------------+" << endl << "\n";
+
+
 
                     } else {
                         cout << "\n\t\t\tInsufficient balance. Please deposit more funds to make the purchase." << endl;
